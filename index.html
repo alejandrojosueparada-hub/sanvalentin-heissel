@@ -1,149 +1,34 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>¿Quieres ser mi San Valentín?</title>
-
-<style>
-    body{
-        text-align:center;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(to right, #ff9a9e, #fad0c4);
-        overflow:hidden;
-        height:100vh;
-    }
-
-    h1{
-        margin-top:40px;
-        font-size:40px;
-        color:white;
-    }
-
-    .imagenes{
-        margin:20px;
-        min-height:240px;
-    }
-
-    .imagenes img{
-        width:220px;
-        height:220px;
-        object-fit:cover;
-        border-radius:15px;
-        box-shadow:0px 5px 15px rgba(0,0,0,0.3);
-        display:none;
-        margin:10px;
-    }
-
-    .botones{
-        margin-top:30px;
-        position:relative;
-        height:300px;
-    }
-
-    button{
-        padding:15px 40px;
-        font-size:20px;
-        border:none;
-        border-radius:10px;
-        cursor:pointer;
-        transition:0.3s;
-        position:absolute;
-    }
-
-    #si{
-        background-color:#4CAF50;
-        color:white;
-        left:40%;
-    }
-
-    #no{
-        background-color:#f44336;
-        color:white;
-        left:55%;
-    }
-
-</style>
-</head>
-
-<body>
-
-<h1>Heissel 💖 ¿Quieres ser mi San Valentín?</h1>
-
-<div class="imagenes">
-    <img id="img1" src="imagen1.jpg">
-    <img id="img2" src="imagen2.jpg">
-    <img id="img3" src="imagen3.jpg">
-</div>
-
-<div class="botones">
-    <button id="si" onclick="respuestaSi()">Sí 💘</button>
-    <button id="no" onclick="respuestaNo()">No 😢</button>
-</div>
-
 <script>
+    const noButton = document.getElementById("no");
+    const yesButton = document.getElementById("yes");
 
-let contadorNo = 0;
-let tamañoSi = 25;
-let tamañoNo = 20;
+    let count = 0;
 
-function respuestaNo(){
-    contadorNo++;
+    noButton.addEventListener("mouseover", function () {
+        count++;
 
-    if(contadorNo <= 3){
-
-        let imagen = document.getElementById("img"+contadorNo);
-        imagen.style.display = "inline-block";
-
-        tamañoSi += 20;
-        document.getElementById("si").style.fontSize = tamañoSi + "px";
-
-        tamañoNo -= 5;
-        document.getElementById("no").style.fontSize = tamañoNo + "px";
-
-        // Solo se mueve en los primeros 2 intentos
-        if(contadorNo < 3){
-            moverBoton();
+        // En el tercer intento desaparece
+        if (count >= 3) {
+            noButton.style.display = "none";
+            alert("Ya no puedes decir que no 😘");
+            return;
         }
-    }
 
-    // En el cuarto intento gana el sí
-    if(contadorNo === 4){
-        respuestaSi();
-    }
-}
+        // Mantener el botón dentro de la pantalla
+        const maxX = window.innerWidth - noButton.offsetWidth;
+        const maxY = window.innerHeight - noButton.offsetHeight;
 
-function moverBoton(){
-    let botonNo = document.getElementById("no");
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
 
-    let ancho = window.innerWidth - 150;
-    let alto = window.innerHeight - 150;
+        noButton.style.position = "absolute";
+        noButton.style.left = randomX + "px";
+        noButton.style.top = randomY + "px";
+    });
 
-    let randomX = Math.random() * ancho;
-    let randomY = Math.random() * alto;
-
-    botonNo.style.left = randomX + "px";
-    botonNo.style.top = randomY + "px";
-}
-
-function respuestaSi(){
-    document.body.innerHTML = `
-        <h1 style="color:white; font-size:70px; margin-top:50px;">
-         SABÍA QUE DIRÍAS QUE SÍ <br>
-        TE QUIERO MUCHO HEISSEL 💕
-        </h1>
-        <br>
-        <img src="img4.jpg" style="
-            width:300px;
-            height:300px;
-            object-fit:cover;
-            border-radius:20px;
-            box-shadow:0px 10px 20px rgba(0,0,0,0.4);
-        ">
-    `;
-}
-
+    yesButton.addEventListener("click", function () {
+        alert("Sabía que dirías que sí ❤️");
+    });
 </script>
 
-</body>
-</html>
 
