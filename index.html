@@ -21,7 +21,7 @@
 
     .imagenes{
         margin:20px;
-        height:220px;
+        min-height:240px;
     }
 
     .imagenes img{
@@ -31,6 +31,7 @@
         border-radius:15px;
         box-shadow:0px 5px 15px rgba(0,0,0,0.3);
         display:none;
+        margin:10px;
     }
 
     .botones{
@@ -66,10 +67,9 @@
 
 <body>
 
-<h1>¿Quieres ser mi San Valentín?</h1>
+<h1>Heissel 💖 ¿Quieres ser mi San Valentín?</h1>
 
 <div class="imagenes">
-    <!-- IMÁGENES QUE APARECEN CUANDO DICE NO -->
     <img id="img1" src="imagen1.jpg">
     <img id="img2" src="imagen2.jpg">
     <img id="img3" src="imagen3.jpg">
@@ -91,7 +91,8 @@ function respuestaNo(){
 
     if(contadorNo <= 3){
 
-        document.getElementById("img"+contadorNo).style.display = "inline-block";
+        let imagen = document.getElementById("img"+contadorNo);
+        imagen.style.display = "inline-block";
 
         tamañoSi += 20;
         document.getElementById("si").style.fontSize = tamañoSi + "px";
@@ -99,10 +100,14 @@ function respuestaNo(){
         tamañoNo -= 5;
         document.getElementById("no").style.fontSize = tamañoNo + "px";
 
-        moverBoton();
+        // Solo se mueve en los primeros 2 intentos
+        if(contadorNo < 3){
+            moverBoton();
+        }
     }
 
-    if(contadorNo >= 4){
+    // En el cuarto intento gana el sí
+    if(contadorNo === 4){
         respuestaSi();
     }
 }
@@ -141,3 +146,4 @@ function respuestaSi(){
 
 </body>
 </html>
+
